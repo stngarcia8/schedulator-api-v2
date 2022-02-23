@@ -1,6 +1,9 @@
 package cl.schedulator.api.infrastructure.controllers;
 
-import cl.schedulator.api.domain.entities.Task;
+import cl.schedulator.api.usecases.TaskGenerator;
+import cl.schedulator.api.usecases.TaskGeneratorImp;
+import cl.schedulator.api.usecases.loader.TaskResponseDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,19 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/v1.0")
 public class TaskController {
-    private List<Task> taskList = new ArrayList<>();
+    private final TaskGenerator taskGenerator;
+    private List<TaskResponseDto> taskList = new ArrayList<>();
 
-    @GetMapping(value = "/tasks", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @Autowired
+    public  TaskController(TaskGeneratorImp taskGenerator){
+        this.taskGenerator= taskGenerator;
+    }
+
+    @GetMapping(value = "/xxx_tasks", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Object> getTasks() {
-        Task task = Task.builder()
-                .taskId("xxx1")
-                .taskName("tarea 1")
-                .duration(3)
-                .build();
-        this.taskList.add(task);
-        return ResponseEntity.ok(taskList);
+        return ResponseEntity.ok(taskGenerator.getTaskList());
     }
 
 
