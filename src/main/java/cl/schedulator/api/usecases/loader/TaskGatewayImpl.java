@@ -13,42 +13,49 @@ import java.util.List;
 @Slf4j
 @Component
 public class TaskGatewayImpl implements TaskGateway {
-  final RoutesConfiguration routes;
-  final WebClientConfiguration webClientConfig;
-  WebClient webClient;
-  private List<TaskResponseDto> taskList;
 
-  public TaskGatewayImpl(RoutesConfiguration routes, WebClientConfiguration webClientConfig) {
-    this.routes = routes;
-    this.webClientConfig = webClientConfig;
-    this.taskList = new ArrayList<>();
-  }
+    final RoutesConfiguration routes;
+    final WebClientConfiguration webClientConfig;
+    WebClient webClient;
+    private List<TaskResponseDto> taskList;
 
-  private void configureWebClient() {
-    this.webClient = this.webClientConfig.getWebClient();
-  }
 
-  private void loadTasks() {
-    log.info("Loading task from microservice");
-    try {
-      Flux<TaskResponseDto> taskFlux =
-          webClient
-              .get()
-              .uri(this.routes.getTaskUri())
-              .retrieve()
-              .bodyToFlux(TaskResponseDto.class);
-      this.taskList = taskFlux.collectList().block();
-      log.info("Task loaded from microservice, " + this.taskList.size() + " task loaded");
-    } catch (Exception ex) {
-      log.error("Error while try to load task from microservice " + ex.getMessage());
-      this.taskList = new ArrayList<>();
+    public TaskGatewayImpl (RoutesConfiguration routes, WebClientConfiguration webClientConfig) {
+        this.routes = routes;
+        this.webClientConfig = webClientConfig;
+        this.taskList = new ArrayList<>();
     }
-  }
 
-  @Override
-  public List<TaskResponseDto> getTaskList() {
-    this.configureWebClient();
-    this.loadTasks();
-    return this.taskList;
-  }
+
+    private void configureWebClient () {
+        this.webClient = this.webClientConfig.getWebClient();
+    }
+
+
+    private void loadTasks () {
+        log.info("Loading task from microservice");
+        try {
+            Flux<TaskResponseDto> taskFlux =
+                    webClient
+                            .get()
+                            .uri(this.routes.getTaskUri())
+                            .retrieve()
+                            .bodyToFlux(TaskResponseDto.class);
+            this.taskList = taskFlux.collectList()
+                    .block();
+            log.info("Task loaded from microservice, " + this.taskList.size() + " task loaded");
+        } catch (Exception ex) {
+            log.error("Error while try to load task from microservice " + ex.getMessage());
+            this.taskList = new ArrayList<>();
+        }
+    }
+
+
+    @Override
+    public List<TaskResponseDto> getTaskList () {
+        this.configureWebClient();
+        this.loadTasks();
+        return this.taskList;
+    }
+
 }

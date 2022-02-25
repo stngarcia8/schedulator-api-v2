@@ -15,33 +15,40 @@ import java.util.List;
 
 @Component
 public class TaskOptimizerImpl implements TaskOptimizer {
-  private List<Task> tasks;
 
-  public TaskOptimizerImpl() {
-    this.tasks = new ArrayList<>();
-  }
+    private List<Task> tasks;
 
-  @Override
-  public void transformToEntityTaskList(List<TaskResponseDto> originTaskList) {
-    TaskTransform transformer = TaskTransform.processList(originTaskList);
-    this.tasks = transformer.getTaskList();
-  }
 
-  @Override
-  public TaskSummary getSummary(TaskSorterEnum orderType) {
-    TaskDistributor distributor = TaskDistributor.distributeTasks(this.tasks);
-    if (orderType == TaskSorterEnum.BY_TASKS_QUANTITY_PER_DAY) {
-      Collections.sort(distributor.getSummary().getDays());
-      reasigmentDayNumberInSummary(distributor.getSummary());
+    public TaskOptimizerImpl () {
+        this.tasks = new ArrayList<>();
     }
-    return distributor.getSummary();
-  }
 
-  private void reasigmentDayNumberInSummary(TaskSummary summary) {
-    Integer dayCounter = 1;
-    for (DailyTask d : summary.getDays()) {
-      d.setDayNumber(dayCounter);
-      dayCounter++;
+
+    @Override
+    public void transformToEntityTaskList (List<TaskResponseDto> originTaskList) {
+        TaskTransform transformer = TaskTransform.processList(originTaskList);
+        this.tasks = transformer.getTaskList();
     }
-  }
+
+
+    @Override
+    public TaskSummary getSummary (TaskSorterEnum orderType) {
+        TaskDistributor distributor = TaskDistributor.distributeTasks(this.tasks);
+        if (orderType == TaskSorterEnum.BY_TASKS_QUANTITY_PER_DAY) {
+            Collections.sort(distributor.getSummary()
+                    .getDays());
+            reasigmentDayNumberInSummary(distributor.getSummary());
+        }
+        return distributor.getSummary();
+    }
+
+
+    private void reasigmentDayNumberInSummary (TaskSummary summary) {
+        Integer dayCounter = 1;
+        for (DailyTask d : summary.getDays()) {
+            d.setDayNumber(dayCounter);
+            dayCounter++;
+        }
+    }
+
 }

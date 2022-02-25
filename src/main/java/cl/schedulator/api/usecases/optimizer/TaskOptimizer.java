@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface TaskOptimizer {
 
-  void transformToEntityTaskList(List<TaskResponseDto> originTaskList);
+    void transformToEntityTaskList (List<TaskResponseDto> originTaskList);
 
-  TaskSummary getSummary(TaskSorterEnum orderType);
+    TaskSummary getSummary (TaskSorterEnum orderType);
+
 }

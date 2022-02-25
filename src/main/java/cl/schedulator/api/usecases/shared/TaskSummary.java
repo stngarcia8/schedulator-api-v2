@@ -8,22 +8,26 @@ import java.util.List;
 @Getter
 public class TaskSummary {
 
-  private Integer totalTasks;
-  private Integer totalDays;
-  private List<DailyTask> days;
+    private Integer totalTasks;
+    private Integer totalDays;
+    private List<DailyTask> days;
 
-  public TaskSummary(Integer totalTasks) {
-    this.totalTasks = totalTasks;
-    this.totalDays = 0;
-    this.days = new ArrayList<>();
-  }
 
-  public void addDay(DailyTask day) {
-    this.days.add(day);
-    this.totalDays = this.days.size();
-  }
+    public TaskSummary (Integer totalTasks) {
+        this.totalTasks = totalTasks;
+        this.totalDays = 0;
+        this.days = new ArrayList<>();
+    }
 
-  public Boolean foundTasks() {
-    return totalTasks == 0 ? false : true;
-  }
+
+    public void addDay (DailyTask day) {
+        this.days.add(day);
+        this.totalDays = this.days.size();
+    }
+
+
+    public Boolean foundTasks () {
+        return totalTasks == 0 ? false : true;
+    }
+
 }

@@ -9,30 +9,38 @@ import java.util.Collections;
 import java.util.List;
 
 public class TaskTransform {
-  private List<Task> resultTaskList;
-  private List<TaskResponseDto> originTaskList;
 
-  private TaskTransform(List<TaskResponseDto> originTaskList) {
-    this.originTaskList = originTaskList;
-  }
+    private List<Task> resultTaskList;
+    private List<TaskResponseDto> originTaskList;
 
-  public static TaskTransform processList(List<TaskResponseDto> originTaskList) {
-    return new TaskTransform(originTaskList);
-  }
 
-  public List<Task> getTaskList() {
-    this.transformList();
-    this.sortResultTaskList();
-    return this.resultTaskList;
-  }
+    private TaskTransform (List<TaskResponseDto> originTaskList) {
+        this.originTaskList = originTaskList;
+    }
 
-  private void transformList() {
-    this.resultTaskList = new ArrayList<>();
-    this.originTaskList.stream()
-        .forEach(t -> this.resultTaskList.add(TaskMapper.create(t).getTask()));
-  }
 
-  private void sortResultTaskList() {
-    Collections.sort(this.resultTaskList);
-  }
+    public static TaskTransform processList (List<TaskResponseDto> originTaskList) {
+        return new TaskTransform(originTaskList);
+    }
+
+
+    public List<Task> getTaskList () {
+        this.transformList();
+        this.sortResultTaskList();
+        return this.resultTaskList;
+    }
+
+
+    private void transformList () {
+        this.resultTaskList = new ArrayList<>();
+        this.originTaskList.stream()
+                .forEach(t -> this.resultTaskList.add(TaskMapper.create(t)
+                        .getTask()));
+    }
+
+
+    private void sortResultTaskList () {
+        Collections.sort(this.resultTaskList);
+    }
+
 }

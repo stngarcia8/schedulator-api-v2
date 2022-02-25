@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TaskResponseDto {
 
-  @JsonProperty("task_id")
-  private String taskId;
+    @JsonProperty("task_id")
+    private String taskId;
 
-  @JsonProperty("task_name")
-  private String taskName;
+    @JsonProperty("task_name")
+    private String taskName;
 
-  @JsonProperty("duration")
-  private Integer duration;
+    @JsonProperty("duration")
+    private Integer duration;
+
 }

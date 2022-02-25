@@ -15,22 +15,26 @@ import java.util.List;
 @Slf4j
 @Service
 public class TaskGeneratorImpl implements TaskGenerator {
-  private TaskGateway gateway;
-  private TaskOptimizer optimizer;
 
-  @Autowired
-  public TaskGeneratorImpl(TaskGateway gateway, TaskOptimizer optimizer) {
-    this.gateway = gateway;
-    this.optimizer = optimizer;
-  }
+    private TaskGateway gateway;
+    private TaskOptimizer optimizer;
 
-  @Override
-  public TaskSummary getSummary(TaskSorterEnum orderType) {
-    log.info("Getting task from schedule generator microservice");
-    List<TaskResponseDto> originTaskList = new ArrayList<>();
-    originTaskList = gateway.getTaskList();
 
-    optimizer.transformToEntityTaskList(originTaskList);
-    return optimizer.getSummary(orderType);
-  }
+    @Autowired
+    public TaskGeneratorImpl (TaskGateway gateway, TaskOptimizer optimizer) {
+        this.gateway = gateway;
+        this.optimizer = optimizer;
+    }
+
+
+    @Override
+    public TaskSummary getSummary (TaskSorterEnum orderType) {
+        log.info("Getting task from schedule generator microservice");
+        List<TaskResponseDto> originTaskList = new ArrayList<>();
+        originTaskList = gateway.getTaskList();
+
+        optimizer.transformToEntityTaskList(originTaskList);
+        return optimizer.getSummary(orderType);
+    }
+
 }
