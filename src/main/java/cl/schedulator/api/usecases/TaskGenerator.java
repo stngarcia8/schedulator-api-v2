@@ -1,9 +1,8 @@
 package cl.schedulator.api.usecases;
 
-import cl.schedulator.api.usecases.loader.TaskResponseDto;
-
-import java.util.List;
+import cl.schedulator.api.usecases.shared.TaskSorterEnum;
+import cl.schedulator.api.usecases.shared.TaskSummary;
 
 public interface TaskGenerator {
-    List<TaskResponseDto> getTaskList();
+  TaskSummary getSummary(TaskSorterEnum orderType);
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class RoutesConfigurationImpl implements RoutesConfiguration {
 
-    private final String baseUrl = "http://localhost:8080";
-    private final String taskUri = "/generator/schedule/tasks";
-
+  private final String baseUrl = "http://localhost:8080";
+  private final String taskUri = "/generator/schedule/tasks";
 }
