@@ -33,7 +33,7 @@ public class TaskController {
 
 
     @GetMapping(
-            value = "/tasks/bytaskquantity",
+            value = "/tasks/day",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Object> getTasksByQuantity () {
         log.info("Processing the request at the entrypoint /api/v1.0/tasks");

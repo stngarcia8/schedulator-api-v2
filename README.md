@@ -32,7 +32,11 @@ Having the microservice running as indicated in the instructions of the exercise
 the entry point from where the data can be visualized is
 
 ```
+# for get task order by duration
 GET http://localhost:8081/tasks
+
+# for get task order by task quantity daily.
+GET http://localhost:8081/tasks/day
 ```
 
 _ _ _ _ _
