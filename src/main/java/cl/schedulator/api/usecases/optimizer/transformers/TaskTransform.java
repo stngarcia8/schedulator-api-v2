@@ -5,8 +5,9 @@ import cl.schedulator.api.usecases.loader.TaskResponseDto;
 import cl.schedulator.api.usecases.shared.mappers.TaskMapper;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskTransform {
 
@@ -26,8 +27,7 @@ public class TaskTransform {
 
     public List<Task> getTaskList () {
         this.transformList();
-        this.sortResultTaskList();
-        return this.resultTaskList;
+        return this.sortResultTaskList();
     }
 
 
@@ -39,8 +39,11 @@ public class TaskTransform {
     }
 
 
-    private void sortResultTaskList () {
-        Collections.sort(this.resultTaskList);
+    private List<Task> sortResultTaskList () {
+        return this.resultTaskList.stream()
+                .sorted(Comparator.comparingInt(Task::getDuration)
+                        .reversed())
+                .collect(Collectors.toList());
     }
 
 }

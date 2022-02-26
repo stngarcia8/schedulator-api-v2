@@ -28,7 +28,8 @@ public class TaskGatewayImpl implements TaskGateway {
 
 
     private void configureWebClient () {
-        this.webClient = this.webClientConfig.getWebClient();
+        this.webClient = this.webClientConfig.getWebClient()
+        ;
     }
 
 

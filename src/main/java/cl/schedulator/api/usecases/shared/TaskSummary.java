@@ -1,6 +1,7 @@
 package cl.schedulator.api.usecases.shared;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ public class TaskSummary {
 
     private Integer totalTasks;
     private Integer totalDays;
+
+    @Setter
     private List<DailyTask> days;
 
 
