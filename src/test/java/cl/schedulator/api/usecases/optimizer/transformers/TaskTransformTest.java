@@ -28,6 +28,16 @@ class TaskTransformTest {
 
 
     @Test
+    @DisplayName("Verify if the instance is type of TaskTransform")
+    void VerifyTypeObject () {
+        // act
+        TaskTransform actualTransformer = TaskTransform.processList(responseTaskList);
+        // assert
+        assertThat(actualTransformer).isInstanceOf(TaskTransform.class);
+    }
+
+
+    @Test
     @DisplayName("get a valid task list after transformation")
     void getCorrectTaskList () {
         // arrange
