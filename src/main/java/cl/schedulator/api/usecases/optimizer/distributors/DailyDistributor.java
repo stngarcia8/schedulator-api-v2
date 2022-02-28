@@ -2,7 +2,9 @@ package cl.schedulator.api.usecases.optimizer.distributors;
 
 import cl.schedulator.api.domain.entities.Task;
 import cl.schedulator.api.usecases.shared.DailyTask;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DailyDistributor {
 
     private final Integer MAX_DURATION = 8;
@@ -19,11 +21,14 @@ public class DailyDistributor {
 
 
     public static DailyDistributor processDay (Integer inProgressDay, TaskChecker checker) {
+        log.info("Starting day " + inProgressDay.toString() + " distribution");
         return new DailyDistributor(inProgressDay, checker);
     }
 
 
     public void addTaskToDay (Task task) {
+        log.info("Adding task " + task.getTaskName() + " to the day" + this.day.getDayNumber()
+                .toString());
         Task newTask = task;
         Integer possibleDuration;
         Integer durationDiference;
@@ -44,6 +49,9 @@ public class DailyDistributor {
 
 
     public DailyTask getDailyTask () {
+        log.info("Day " + this.day.getDayNumber()
+                .toString() + " has been processed with " + this.day.getTaskPerDay()
+                .toString() + " tasks");
         return this.day;
     }
 

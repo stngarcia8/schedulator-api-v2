@@ -7,6 +7,7 @@ import cl.schedulator.api.usecases.optimizer.transformers.TaskTransform;
 import cl.schedulator.api.usecases.shared.DailyTask;
 import cl.schedulator.api.usecases.shared.TaskSorterEnum;
 import cl.schedulator.api.usecases.shared.TaskSummary;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class TaskOptimizerImpl implements TaskOptimizer {
 
@@ -28,6 +30,7 @@ public class TaskOptimizerImpl implements TaskOptimizer {
 
     @Override
     public void transformToEntityTaskList (List<TaskResponseDto> originTaskList) {
+        log.info("Transform original task list into valid task list.");
         TaskTransform transformer = TaskTransform.processList(originTaskList);
         this.tasks = transformer.getTaskList();
     }
@@ -41,11 +44,13 @@ public class TaskOptimizerImpl implements TaskOptimizer {
                     .getDays());
             reasigmentDayNumberInSummary(distributor.getSummary());
         }
+        log.info("Task distribution was finished");
         return distributor.getSummary();
     }
 
 
     private List<DailyTask> sortByDayTaskQuantity (TaskSummary summary) {
+        log.info("Sorting task list");
         return summary.getDays()
                 .stream()
                 .sorted(Comparator.comparingInt(DailyTask::getTaskPerDay)
@@ -55,6 +60,7 @@ public class TaskOptimizerImpl implements TaskOptimizer {
 
 
     private void reasigmentDayNumberInSummary (TaskSummary summary) {
+        log.info("Reorganizing days order");
         Integer dayCounter = 1;
         for (DailyTask d : summary.getDays()) {
             d.setDayNumber(dayCounter);

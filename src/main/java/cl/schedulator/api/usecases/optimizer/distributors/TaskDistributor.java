@@ -2,9 +2,11 @@ package cl.schedulator.api.usecases.optimizer.distributors;
 
 import cl.schedulator.api.domain.entities.Task;
 import cl.schedulator.api.usecases.shared.TaskSummary;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 public class TaskDistributor {
 
     private final Integer MAX_DURATION = 8;
@@ -25,6 +27,7 @@ public class TaskDistributor {
 
 
     private void executeDistribution () {
+        log.info("Starting the distribution for tasks");
         TaskChecker checker = TaskChecker.createChecker(this.originalTaskList);
         for (Task t : this.originalTaskList) {
             if (checker.canProcessThisTask(t)) {
