@@ -33,16 +33,17 @@ the entry point from where the data can be visualized is
 
 ```
 # for get task order by duration
-GET http://localhost:8081/tasks
+GET http://localhost:8081/schedulator/tasks
 
 # for get task order by task quantity daily.
-GET http://localhost:8081/tasks/day
+GET http://localhost:8081/schedulator/tasks/day
 ```
 
 _ _ _ _ _
 
 ## Api documentation
-The api documentation can be found in localhost:8081/swagger-ui.html
+
+The api documentation can be found in http://localhost:8081/schedulator/swagger-ui/index.html#/
 
 
 _ _ _ _ _
