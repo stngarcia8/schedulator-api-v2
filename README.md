@@ -41,6 +41,12 @@ GET http://localhost:8081/tasks/day
 
 _ _ _ _ _
 
+## Api documentation
+The api documentation can be found in localhost:8081/swagger-ui.html
+
+
+_ _ _ _ _
+
 ## License:
 
 MIT license.
